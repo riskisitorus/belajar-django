@@ -2,11 +2,27 @@
 
 {% block content %}
 <h1>Projects Template</h1>
-
+<a href="{% url 'create-project' %}">add new Project</a>
+<table>
+    <thead>
+        <th>Project</th>
+        <th>Vote</th>
+        <th>Created</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        
+        {% for project in projects %}
+        <tr>
+            <td>{{ project.title }}</td>
+            <td>{{ project.vote_total }}</td>
+            <td>{{ project.created }}</td>
+            <td><a href="{% url 'project' project.id %}">view</a> | <a href="{% url 'update-project' project.id %}">edit</a> | <a href="{% url 'delete-project' project.id %}">delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 <ul>
-    {% for project in projects %}
-    <li><a href="{% url 'project' project.id %}">{{ project.title}}</a></li>
-    {% endfor %}
 </ul>
 
 {% endblock content %}
