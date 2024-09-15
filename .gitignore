@@ -3,4 +3,6 @@ env/
 venv/
 
 # Django migrations
-*/migrations/*.pyc
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
