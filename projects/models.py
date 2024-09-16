@@ -8,6 +8,7 @@ class Project(models.Model):
     # null untuk database
     # blank untuk form
     description = models.TextField(null=True, blank=True)
+    featured_img = models.ImageField(null=True, blank=True, default='default.jpg')
     demo_link = models.CharField(max_length=2000, null=True, blank=True)
     source_link = models.CharField(max_length=2000, null=True, blank=True)
     tags = models.ManyToManyField('Tag', blank=True)

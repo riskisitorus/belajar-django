@@ -1,8 +1,22 @@
 from django.forms import ModelForm
+from django import forms
 from .models import Project
 
 class ProjectForm(ModelForm):
     
     class Meta:
         model = Project
-        fields = ['title', 'description', 'demo_link', 'source_link', 'tags']
+        fields = ['title', 'featured_img', 'description', 'demo_link', 'source_link', 'tags']
+        widgets = {
+            'tags':forms.CheckboxSelectMultiple,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ProjectForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class':'input'})
+        
+        # self.fields['title'].widget.attrs.update({'class':'input', 'placeholder':'Masukkan Judul'})
+        # self.fields['demo_link'].widget.attrs.update({'class':'input', 'placeholder':'Masukkan demo_link'})
+        # self.fields['source_link'].widget.attrs.update({'class':'input', 'placeholder':'Masukkan source_link'})
