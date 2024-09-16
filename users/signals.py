@@ -5,7 +5,6 @@ from .models import Profile, User
 
 # @receiver(post_save, sender=Profile)
 def CreateProfile(sender, instance, created, **kwargs):
-    print('signal triggered')
     if created:
         user = instance
         profile = Profile.objects.create(
