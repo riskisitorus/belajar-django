@@ -4,9 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Profile
+from .forms import CustomUserCreationForm
 
 # Create your views here.
 def loginUser(request):
+    page = 'login'
+    context = {'page':page}
     # cegah user yang sudah login ke halaman login
     if request.user.is_authenticated:
         return redirect('profiles')
@@ -18,7 +21,8 @@ def loginUser(request):
         try:
             user = User.objects.get(username=username)
         except:
-            messages.error(request, 'username does not exist')
+            # messages.error(request, 'username does not exist')
+            user = None
         
         user = authenticate(request, username=username, password=password)
         if user is not None:
@@ -27,12 +31,34 @@ def loginUser(request):
         else:
             messages.error(request, 'Username or password is incorrect')
 
-    return render(request, 'users/login_register.html')
+    return render(request, 'users/login_register.html', context)
 
+@login_required
 def logoutUser(request):
     logout(request)
-    messages.error(request, 'user was logout')
+    messages.info(request, 'user was logout')
     return redirect('login')
+
+def registerUser(request):
+    page = 'register'
+    form = CustomUserCreationForm()
+
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+
+            messages.success(request, 'User account was created!')
+            login(request, user)
+            return redirect('profiles')
+        else:
+            messages.success(request, 'An error has occurred during registration')
+
+
+    context = {'page':page, 'form':form}
+    return render(request, 'users/login_register.html', context)
 
 def profiles(request):
     profiles = Profile.objects.all()

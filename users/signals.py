@@ -16,7 +16,11 @@ def CreateProfile(sender, instance, created, **kwargs):
 
 def deleteUser(sender, instance, **kwargs):
     user = instance.user
-    user.delete()
+    if user:
+        user.delete()
 
 post_save.connect(CreateProfile, sender=User)
 post_delete.connect(deleteUser, sender=Profile)
+
+# bug jika pake signals delete, saat hapus dari user akan error
+# tapi saat hapus dari profile tidak
