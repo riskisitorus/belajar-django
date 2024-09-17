@@ -14,6 +14,16 @@ def CreateProfile(sender, instance, created, **kwargs):
             name=user.first_name,
         )
 
+@receiver(post_save, sender=Profile)
+def UpdateProfile(sender, instance, created, **kwargs):
+    profile = instance
+    user = profile.user
+    if created == False:
+        user.first_name = profile.name
+        user.username = profile.username
+        user.email = profile.email
+        user.save()
+
 def deleteUser(sender, instance, **kwargs):
     user = instance.user
     if user:
@@ -24,3 +34,4 @@ post_delete.connect(deleteUser, sender=Profile)
 
 # bug jika pake signals delete, saat hapus dari user akan error
 # tapi saat hapus dari profile tidak
+
