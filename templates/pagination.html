@@ -10,7 +10,7 @@
     {% endif %} {% for page in custom_range %} {% if page == queryset.number %}
     <li><a href="?page={{page}}" class="btn btn--sub">{{page}}</a></li>
     {% else %}
-    <li><a href="?page={{page}}" class="btn">{{page}}</a></li>
+    <li><a href="?page={{page}}{% if search_query %}&query={{ search_query }}{% endif %}" class="btn">{{page}}</a></li>
     {% endif %} {% endfor %} {% if queryset.has_next %}
     <li>
       <a href="?page={{queryset.next_page_number}}" class="btn"

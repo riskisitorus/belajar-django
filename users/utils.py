@@ -27,15 +27,15 @@ def paginateProfiles(request, profiles, results):
     return custom_range, profiles
 
 def searchProfiles(request):
-    seacrh_query = ''
+    search_query = ''
 
     if request.GET.get('query'):
-        seacrh_query = request.GET.get('query')
+        search_query = request.GET.get('query')
     
-    skills = Skill.objects.filter(name__icontains=seacrh_query)
+    skills = Skill.objects.filter(name__icontains=search_query)
     profiles = Profile.objects.distinct().filter(
-        Q(name__icontains=seacrh_query)|
-        Q(short_intro__icontains=seacrh_query)|
+        Q(name__icontains=search_query)|
+        Q(short_intro__icontains=search_query)|
         Q(skill__in=skills))
     
-    return profiles, seacrh_query
+    return profiles, search_query

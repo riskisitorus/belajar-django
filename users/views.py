@@ -62,11 +62,11 @@ def registerUser(request):
     return render(request, 'users/login_register.html', context)
 
 def profiles(request):
-    profiles, seacrh_query = searchProfiles(request)
-    custom_range, profiles = paginateProfiles(request, profiles, 1)
+    profiles, search_query = searchProfiles(request)
+    custom_range, profiles = paginateProfiles(request, profiles, 9)
     context = {
         'profiles': profiles,
-        'seacrh_query': seacrh_query,
+        'search_query': search_query,
         'custom_range': custom_range,
     }
     return render(request, 'users/profiles.html', context)
