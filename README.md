@@ -14,7 +14,9 @@ env\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Makemigration and migrate database
+4. Edit the `.env.example` file to `.env` and update the necessary environment variables with your own configurations.
+
+5. Makemigration and migrate database
 ```bash
 py manage.py makemigrations
 ```
@@ -22,7 +24,7 @@ py manage.py makemigrations
 py manage.py migrate
 ```
 
-5. Run Django server
+6. Run Django server
 ```bash
 py manage.py runserver
 ```

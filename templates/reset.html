@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+
+{% block content %}
+<!-- Main Section -->
+<main class="formPage my-xl">
+    <div class="content-box">
+        <div class="formWrapper">
+            <a class="backButton" href="{% url 'login' %}"><i class="im im-angle-left"></i></a>
+            <br>
+            <h1>Enter new password</h1>
+            <p>Please enter your new password twice so we can verify you typed it in correctly.</p>
+            <form class="form" method="POST">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label for="formInput#new_password1">{{ form.new_password1.label }}: </label>
+                    <input class="input input--text" id="formInput#new_password1" type="password"
+                           name="{{ form.new_password1.name }}" placeholder="New password"
+                           value="{{ form.new_password1.value|default_if_none:'' }}">
+                    {% if form.new_password1.errors %}
+                    <div class="error">
+                        {% for error in form.new_password1.errors %}
+                            <p style="color:red" >{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form__field">
+                    <label for="formInput#new_password2">{{ form.new_password2.label }}: </label>
+                    <input class="input input--text" id="formInput#new_password2" type="password"
+                           name="{{ form.new_password2.name }}" placeholder="Confirm password"
+                           value="{{ form.new_password2.value|default_if_none:'' }}">
+                    {% if form.new_password2.errors %}
+                    <div class="error">
+                        {% for error in form.new_password2.errors %}
+                            <p style="color:red" >{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <input class="btn btn--sub btn--lg  my-md" type="submit" value="Change my password" />
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock content %}
