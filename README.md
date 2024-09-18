@@ -10,7 +10,6 @@ env\Scripts\activate
 ```
 
 3. Install dependencies:
-*requirements.txt has not been created, just install django*
 ```bash
 pip install -r requirements.txt
 ```
