@@ -28,3 +28,5 @@ py manage.py migrate
 ```bash
 py manage.py runserver
 ```
+
+7. Enjoy!
