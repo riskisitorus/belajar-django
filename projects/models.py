@@ -5,7 +5,7 @@ import uuid
 # Create your models here.
 
 class Project(models.Model):
-    owner = models.ForeignKey("users.Profile", null=True, blank=True, on_delete=models.SET_NULL)
+    owner = models.ForeignKey("users.Profile", null=True, blank=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     # null untuk database
     # blank untuk form
@@ -24,6 +24,14 @@ class Project(models.Model):
     
     class Meta:
         ordering = ['-vote_ratio', '-vote_total', 'title']
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.featured_img.url
+        except:
+            url = ''
+        return url
 
     @property
     def reviewers(self):

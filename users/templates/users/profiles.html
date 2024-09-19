@@ -1,5 +1,6 @@
-{% extends "main.html" %}
 
+{% extends "main.html" %}
+{% load static %}
 {% block content %}
 <!-- Main Section -->
 <main class="home">
@@ -32,7 +33,11 @@
           <div class="dev">
             <a href="{% url 'user-profile' profile.id %}" class="card__body">
               <div class="dev__profile">
-                <img class="avatar avatar--md" src="{{profile.profile_image.url}}" alt="{{profile.name}}" />
+                {% if profile.profile_image %}
+                    <img class="avatar avatar--md" src="{{profile.profile_image.url}}" alt="{{profile.name}}" />
+                    {% else %}
+                    <img class="avatar avatar--md" src="{% static "images/default.jpg" %}" alt="{{profile.name}}" />
+                {% endif %}
                 <div class="dev__meta">
                   <h3>{{profile.name}}</h3>
                   <h5>{{profile.short_intro}}</h5>

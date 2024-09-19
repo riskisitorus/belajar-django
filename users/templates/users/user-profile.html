@@ -1,5 +1,5 @@
 {% extends "main.html" %}
-
+{% load static %}
 {% block content %}
 <!-- Main Section -->
 <main class="profile my-md">
@@ -8,7 +8,11 @@
         <div class="column column--1of3">
           <div class="card text-center">
             <div class="card__body dev">
-              <img class="avatar avatar--xl" src="{{profile.profile_image.url}}" />
+              {% if profile.profile_image %}
+                  <img class="avatar avatar--xl" src="{{profile.profile_image.url}}" alt="{{profile.name}}" />
+                  {% else %}
+                  <img class="avatar avatar--xl" src="{% static "images/default.jpg" %}" alt="{{profile.name}}" />
+              {% endif %}
               <h2 class="dev__name">{{profile.name}}</h2>
               <p class="dev__title">{{profile.short_intro}}</p>
               <p class="dev__location">{{profile.locations}}</p>

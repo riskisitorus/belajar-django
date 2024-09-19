@@ -20,9 +20,8 @@ class Profile(models.Model):
 
     
 
-    # class Meta:
-    #     verbose_name = _("Profile")
-    #     verbose_name_plural = _("Profiles")
+    class Meta:
+        ordering = ['created']
 
     def __str__(self):
         return str(self.username)
